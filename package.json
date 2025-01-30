@@ -1,0 +1,31 @@
+{
+  "name": "nodejs_mtp_smartprogress",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon MTP_Smart_Progerss_Server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "axios": "^1.7.9",
+    "body-parser": "^1.20.3",
+    "bootstrap": "^5.3.3",
+    "bootstrap-icons": "^1.11.3",
+    "cookie-session": "^2.1.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "ejs": "^3.1.10",
+    "express": "^4.21.2",
+    "jquery": "^3.7.1",
+    "mssql": "^11.0.1",
+    "multer": "^1.4.5-lts.1",
+    "node": "^18.20.6",
+    "nodemon": "^3.1.9",
+    "sequelize": "^6.37.5",
+    "sweetalert2": "^11.15.10"
+  }
+}
