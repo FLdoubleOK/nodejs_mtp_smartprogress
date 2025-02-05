@@ -1,5 +1,5 @@
 async function redirectToLogin(req, res) {
-  res.render('home');
+  res.render('Home');
 }
 
 

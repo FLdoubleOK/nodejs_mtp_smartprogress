@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Get Parameters</title>
+  <%- include('./header.ejs') %>
+</head>
+
+<body>
+
+  <button type="button" class="btn btn-primary m-3" onclick="GetParams();">GetParam</button>
+  <p id="txtError"></p>
+  <table id="tblParams" class="m-3">
+    <tr>
+      <th class="fs-4">VERSION_CONTROL :</th>
+      <td id="versionControl" class="fs-4"></td>
+    </tr>
+    <!-- <tr>
+      <th>PARAM_NAME</th>
+      <td id="picturePath"></td>
+    </tr>
+    <tr>
+      <th>MANUAL_PATH</th>
+      <td id="manualPath"></td>
+    </tr> -->
+  </table>
+</body>
+
+</html>
