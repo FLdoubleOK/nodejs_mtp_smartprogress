@@ -29,7 +29,7 @@ async function TestSelect() {
     try {
       const pool = await sql.connect(dbConfig.config); // Connect to the database
       const request = new sql.Request(pool);
-  
+      console.log("Database log: " + Register_No)
       // Pass the Register_No parameter to the stored procedure
       request.input("Register_No", sql.NVarChar, Register_No); // Use NVARCHAR if your SQL expects it
   

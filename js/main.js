@@ -7,7 +7,7 @@ async function fetchData() {
   try {
     // Send a POST request to the backend API with the Register_No
     const response = await axios.post(
-      "/mtp/fetchDataByRegisterNo",
+      "/mtp/fetchDataByRegisterNo/:Register_No",
       { Register_No: registerNo }, // Send the search value (can be empty)
       {
         headers: {

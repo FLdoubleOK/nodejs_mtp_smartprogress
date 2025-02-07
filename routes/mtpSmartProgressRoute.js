@@ -60,7 +60,7 @@ router.post("/tester", mainController.executeStoredProcedure); //prem
 //     });
 //   }
 // });
-router.post("/fetchDataByRegisterNo", mainController.fetchRegisterNo);
+router.post("/fetchDataByRegisterNo/:Register_No", mainController.fetchRegisterNo);
 
 //////////////////////////////////////////// Encryption and Decryption ////////////////////////////////////////////
 router.get("/Encryption/:nid", encryptionDecryption_Controller.encryptedData);
