@@ -16,7 +16,7 @@ router.get("/", homeController.redirectToLogin);
 
 router.get("/main", mainController.renderMain); // prem
 router.post("/register", mainController.MainPage); // prem
-router.post("/tester", mainController.executeStoredProcedure); //prem
+// router.post("/tester", mainController.executeStoredProcedure); //prem
 // router.post("/test", (req, res) => {
 //   const { Register_No } = req.body;
 
@@ -60,8 +60,8 @@ router.post("/tester", mainController.executeStoredProcedure); //prem
 //     });
 //   }
 // });
-router.post("/fetchDataByRegisterNo/:Register_No", mainController.fetchRegisterNo);
-
+router.get("/fetchDataByRegisterNo/:Register_No", mainController.fetchRegisterNo);
+router.post("/getRegister", mainController.getRegister)
 //////////////////////////////////////////// Encryption and Decryption ////////////////////////////////////////////
 router.get("/Encryption/:nid", encryptionDecryption_Controller.encryptedData);
 router.get("/Decryption/:codex", encryptionDecryption_Controller.decryptedData);

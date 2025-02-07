@@ -27,27 +27,29 @@ async function SubPage(req, res) {
   }
 }
 async function fetchRegisterNo(req, res) {
-  const { Register_No } = req.body;
+  const { Register_No } = req.params;
   console.log("Controller log: " + Register_No);
+
   if (!{ Register_No }) {
     return res
       .status(400)
       .json({ success: false, error: "Register_No is required" });
   }
+
   try {
     // Call the function to execute the stored procedure
     const data = await db.executeStoredProcedureWithParams(Register_No);
-    if (data.success) {
-      req.session.Register_No = Register_No;
-      res.redirect("/mtp/main");
-    } else {
-      // Consider using more specific status codes based on the error type
-      res.status(500).json({ message: result.message });
-    }
+    // console.log("data : ", data);
+    // res.redirect("/mtp/main");
     // Send the result back to the client
-    return res.json({ success: true, data });
+    // ส่งค่า Register_No ไปยัง EJS Template
+    // return res.json({ success: true, data });
+    console.log('Register_No', Register_No)
+    console.log('data',data)
+    res.send(Register_No, data)
+    // return res.render('main', { Register_No: Register_No, data });
   } catch (error) {
-    console.error("Error fetching data:", error.message);
+    console.error("Error fetching data(controller):", error.message);
     // Send a sanitized error response
     return res.status(500).json({
       success: false,
@@ -57,34 +59,17 @@ async function fetchRegisterNo(req, res) {
   }
 }
 
-async function executeStoredProcedure(req, res, Register_No) {
+async function getRegister(req, res) {
   try {
-    // Register_No = req.body; // Destructure the field you're expecting
-    console.log(Register_No);
-
-    if (!Register_No || typeof Register_No !== "string") {
-      return res
-        .status(400)
-        .send({ message: "Invalid or missing Register_No" });
-    }
-
-    // Call the database function and pass the parameters
-    const result = await db.executeStoredProcedureWithParams(Register_No);
-    if (!result || result.length === 0) {
-      return res
-        .status(404)
-        .send({ message: "No found for the given Register_No" });
-    }
-    // Return a success response with the result
-    res.status(200).send({ success: true, data: result });
+    const {getRegisterNo} = req.params
+    console.log(getRegisterNo);
+    res.send(getRegisterNo)
   } catch (error) {
     console.error(`Error executing stored procedure: ${error.message}`);
-    res
-      .status(500)
-      .send({
-        message: "Error executing stored procedure",
-        error: error.message,
-      });
+    res.status(500).send({
+      message: "Error executing stored procedure",
+      error: error.message,
+    });
   }
 }
 
@@ -92,6 +77,6 @@ module.exports = {
   renderMain,
   MainPage,
   SubPage,
-  executeStoredProcedure,
+  getRegister,
   fetchRegisterNo,
 };

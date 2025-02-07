@@ -34,8 +34,8 @@ async function TestSelect() {
       request.input("Register_No", sql.NVarChar, Register_No); // Use NVARCHAR if your SQL expects it
   
       const result = await request.execute("Where_Register_No"); // Replace with your stored procedure name
+      console.log("Stored procedure result: ", result.recordset);
       await pool.close(); // Close the database connection
-  
       return result.recordset; // Return the result of the stored procedure
     } catch (error) {
       console.error(`Database error: ${error}`);
