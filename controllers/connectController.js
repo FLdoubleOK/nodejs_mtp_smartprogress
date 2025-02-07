@@ -1,18 +1,16 @@
-const connect_sql  = require("../database/db.js");
+const connect_sql = require("../database/db.js");
 const { poolPromise } = require("../database/db.js"); // อ้างอิงไฟล์ model ของคุณ
 async function getConnect(req, res) {
-
-    res.render('Params');
+  res.render("Params");
 }
 
-
-async function test(req, res)  {
+async function test(req, res) {
   try {
     const pool = await poolPromise;
     // console.log("Connected to database"); // Debug
-   // เรียกใช้ Stored Procedure
-   const result = await pool.request().execute("Master.sps_GetInitGlobalParam"); // ใช้ชื่อ Stored Procedure ของคุณ
-  //  console.log("Query result: ", result.recordset); // Debug
+    // เรียกใช้ Stored Procedure
+    const result = await pool.request().execute("Where_Register_No"); // ใช้ชื่อ Stored Procedure ของคุณ
+    //  console.log("Query result: ", result.recordset); // Debug
     res.json({
       success: true,
       data: result.recordset,
@@ -26,8 +24,6 @@ async function test(req, res)  {
     });
   }
 }
-
-
 
 module.exports = {
   getConnect,

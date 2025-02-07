@@ -1,13 +1,13 @@
 const crypto = require('crypto');
 
 // Assuming ENCRYPTION_KEY is a 64-character-long hexadecimal string.
-const ENCRYPTION_KEY = process.env.ENCRYPTION_KEY;
+// const ENCRYPTION_KEY = process.env.ENCRYPTION_KEY;
 
-if (!ENCRYPTION_KEY || ENCRYPTION_KEY.length !== 64) {
-  throw new Error(
-    'The encryption key must be a 64-character-long hexadecimal string.'
-  );
-}
+// if (!ENCRYPTION_KEY || ENCRYPTION_KEY.length !== 64) {
+//   throw new Error(
+//     'The encryption key must be a 64-character-long hexadecimal string.'
+//   );
+// }
 
 const IV_LENGTH = 16; // For AES, this is always 16
 

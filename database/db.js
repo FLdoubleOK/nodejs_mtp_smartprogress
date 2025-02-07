@@ -16,7 +16,7 @@ const config = {
 const poolPromise = new sql.ConnectionPool(config)
   .connect()
   .then((pool) => {
-    console.log("Connected to MSSQL :",config.database);
+    console.log("Connected to MSSQL :", config.database);
     return pool;
   })
   .catch((err) => console.log("Database Connection Failed: ", err));
@@ -24,4 +24,5 @@ const poolPromise = new sql.ConnectionPool(config)
 module.exports = {
   sql,
   poolPromise,
+  config,
 };

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+    <%- include('./header.ejs') %>
+  </head>
+  <body>
+    <div>
+      <h1>Tool Production Process List</h1>
+
+      <!-- Search box for filtering by Register_No -->
+      <label for="searchBox">Search by Register_No:</label>
+      <input type="text" id="searchBox" placeholder="Enter Register_No" oninput="filterTable()" />
+
+      <table border="1">
+        <thead>
+          <tr>
+            <th>Register_No</th>
+            <th>Part</th>
+            <th>Qty</th>
+            <th>TP_Process</th>
+            <th>RequireDate</th>
+            <th>PlanMaking</th>
+            <th>Rank</th>
+            <th>Remark</th>
+            <th>MonitorPlan</th>
+            <th>StatusProcess</th>
+          </tr>
+        </thead>
+        <tbody id="dataBox">
+          <!-- Dynamic rows will be appended here -->
+        </tbody>
+      </table>
+    </div>
+    <!-- Include the Axios library -->
+    <script src="/js/main.js"></script>
+  </body>
+</html>
