@@ -5,53 +5,291 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home</title>
     <%- include('./header.ejs') %>
+    <style>
+      @keyframes blink {
+        50% {
+          opacity: 0.7; /* ลดความโปร่งแสง */
+        }
+      }
+
+      /* คลาสสำหรับจุดที่เป็น step สุดท้าย */
+      .circle.active1.final-step {
+        border-color: #4070f4; /* สีฟ้า */
+        color: #4070f4;
+        font-weight: bold; /* ทำให้ตัวอักษรหนา */
+        animation: blink 1s infinite; /* กระพริบ */
+        box-shadow: 0 0 10px 2px #4070f4; /* เพิ่มเงาสีฟ้ารอบจุด */
+      }
+      body {
+        width: 90%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #f6f7fb;
+        margin: auto;
+        
+      }
+      .contain {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 40px;
+        max-width: 95%;
+        width: 100%;
+        border-radius: 5px;
+      }
+      .contain .steps {
+        display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: space-between;
+        position: relative;
+      }
+      .circle.active1 {
+        border-color: #1945be; /* สีฟ้าสำหรับ Step ที่ผ่านมา */
+        color: #1945be;
+      }
+      .circle.done {
+        background-color: #49da5c; /* ระบายสีพื้นหลังเป็นสีเขียว */
+        border-color: #49da5c; /* สีขอบวงกลม */
+        color: #ffffff; /* สีของสัญลักษณ์ภายในวงกลม */
+        font-size: 16px; /* ขนาดตัวอักษร */
+        font-weight: bold; /* ทำให้ตัวอักษรหนา */
+      }
+
+      .circle.done::after {
+        content: "✓"; /*แสดงเครื่องหมายติ้กถูก */
+        display: inline-block; /* แสดงผลในรูปแบบบล็อกย่อย */
+        font-size: 16px; /* ขนาดของเครื่องหมายติ้กถูก */
+        font-weight: bold; /* ทำให้ตัวอักษรหนา */
+        color: #ffffff; /* สีของเครื่องหมายติ้กถูก */
+      }
+      /* จุดล่าสุดที่ Active */
+      .circle.current-step {
+        border-color: #ff9800; /* สีส้มสำหรับ Step ล่าสุด */
+        color: #ff9800;
+        font-weight: bold; /* ทำให้ตัวอักษรหนาขึ้น */
+        transform: scale(1.2); /* เพิ่มขนาดเพื่อเน้น */
+        box-shadow: 0 0 10px 2px #1945be; /* เพิ่มเงาเพื่อให้โดดเด่น */
+        animation: blink 1s infinite; /* เพิ่มเอฟเฟกต์กระพริบ */
+      }
+      .steps .circle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 30px;
+        width: 30px;
+        color: #999;
+        font-size: 15px; /*22*/
+        font-weight: 500;
+        border-radius: 50%;
+        background: #fff;
+        border: 4px solid #e0e0e0;
+        transition: all 200ms ease;
+        transition-delay: 0s;
+        z-index: 1;
+      }
+      .circle.active {
+        transition-delay: 100ms;
+        border-color: #49da5c;
+        color: #49da5c; /* string */
+        background-color: #49da5c;
+      }
+      .steps .progress-bar {
+        position: absolute;
+        height: 4px;
+        width: 100%;
+        background: #e0e0e0;
+        z-index: 0;
+      }
+      .progress-bar .indicator {
+        position: absolute;
+        height: 100%;
+        width: 0%;
+        background: #49da5c;
+        transition: all 500ms ease;
+      }
+    </style>
   </head>
-  <body>
-    <div>
-      <h1>SMART MTP Monitoring</h1>
-      <input type="hidden" id="Register_No" value="<%= Register_No %>" />
-      <!-- Search box for filtering by Register_No -->
-      <label for="searchBox">Search by Register_No:</label>
-      <input type="text" id="searchBox" placeholder="Enter Register_No" />
-      <button id="searchButton">Search</button>
-      <!-- เพิ่มปุ่มค้นหา -->
+  <body class="">
+    <div class="container">
+      <div class="container">
+        <h1 class="p-2 text-center">Register No: <%= data[0].Register_No %></h1>
+      </div>
+      <div class="pb-3">
+        <div class="row mb-3">
+          <div class="col-md-4">
+            <strong>Work Category:</strong>
+            <div class="p-2 border rounded bg-light"
+            data-workcategory="<%= data[0].WorkCategory || '-' %>">
+              <%= data[0].WorkCategory || '-' %>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <strong>Work Objective:</strong>
+            <div class="p-2 border rounded bg-light">
+              <%= data[0].WorkObjective || '-'%>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <strong>Additional Detail:</strong>
+            <div class="p-2 border rounded bg-light">
+              <%= data[0].Detail || '-' %>
+            </div>
+          </div>
+        </div>
+        <!-- บรรทัดที่ 2 -->
+        <div class="row">
+          <div class="col-md-3">
+            <strong>Tool Work No.:</strong>
+            <div class="p-2 border rounded bg-light">
+              <%= data[0].ToolNo || '-' %>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <strong>Revision:</strong>
+            <div class="p-2 border rounded bg-light">
+              <%= data[0].Revision || '-' %>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <strong>Tool Work Name:</strong>
+            <div class="p-2 border rounded bg-light">
+              <%= data[0].ToolName || '-' %>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <strong>Require Date:</strong>
+            <div class="p-2 border rounded bg-light">
+              <%= data[0].RequireDate ? new
+              Date(data[0].RequireDate).toISOString().split('T')[0] : '-' %>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <!-- Table for displaying data -->
-      <table border="1">
-        <thead>
-          <tr>
-            <th>Register_No</th>
-            <th>PartName</th>
-            <th>Qty</th>
-            <th>Maker</th>
-            <th>Maker_Making</th>
-            <th>Material_Cost</th>
-            <th>STD_part_Cost</th>
-            <th>MaterialTime</th>
-            <th>MakingTime</th>
-            <th>FinishingTime</th>
-            <th>QcTimeth></th>
-            <th>AssemblyTime</th>
-            <th>PackingTime</th>
-            <th>Process_Cost</th>
-            <th>TTL</th>
-            <th>FinishedDate</th>
-            <th>Progress</th>
-          </tr>
-        </thead>
-        <tbody id="dataBox">
-          <!-- Rows of data will be dynamically inserted here -->
-        </tbody>
-      </table>
+      <div class="table-reponsive">
+        <table class="table table-bordered table-fixed" >
+          <thead class="sticky-top">
+            <tr class="text-center align-middle border-dark-subtle">
+              <th class="" style="background-color: rgb(207, 240, 207); width: auto;">
+                PartName
+              </th>
+              <th class="" style="background-color: rgb(207, 240, 207)">Qty</th>
+              <th class="" style="background-color: rgb(207, 240, 207)">
+                Maker Standard
+              </th>
+              <th class="" style="background-color: rgb(250, 219, 184)">
+                Maker Making
+              </th>
+              <th
+                class=""
+                style="width: 85px; background-color: rgb(250, 219, 184)"
+              >
+                Planning
+              </th>
+              <th
+                class=""
+                style="width: 80px; background-color: rgb(250, 219, 184)"
+              >
+                STD
+              </th>
+              <th
+                class=""
+                style="width: 100px; background-color: rgb(250, 219, 184)"
+              >
+                Vendor
+              </th>
+              <th
+                class=""
+                style="width: 80px; background-color: rgb(250, 219, 184)"
+              >
+                Material
+              </th>
+              <th
+                class=""
+                style="width: 90px; background-color: rgb(250, 219, 184)"
+              >
+                Production
+              </th>
+              <th
+                class=""
+                style="width: 80px; background-color: rgb(250, 219, 184)"
+              >
+                Gauge Making
+              </th>
+              <th
+                class=""
+                style="width: 85px; background-color: rgb(250, 219, 184)"
+              >
+                QC
+              </th>
+              <th
+                class=""
+                style="width: 85px; background-color: rgb(250, 219, 184)"
+              >
+                Finish
+              </th>
+              <th class="" style="background-color: rgb(250, 219, 184)">
+                FinishedDate
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <% if (data && data.length > 0) { %> <% data.forEach(item => { %>
+            <tr
+              class="text-center align-middle"
+              data-planning="<%= item.Planning || 0 %>"
+              data-std="<%= item.STD || 0 %>"
+              data-vendor="<%= item.Vendor || 0 %>"
+              data-material="<%= item.Material || 0 %>"
+              data-production="<%= item.Production || 0 %>"
+              data-gauge-making="<%= item.Gauge_Making || 0 %>"
+              data-qc="<%= item.QC || 0 %>"
+              data-finish="<%= item.Finish || 0 %>"
+            >
+              <td><%= item.PartName || '' %></td>
+              <td><%= item.Qty || '' %></td>
+              <td><%= item.Maker || '' %></td>
+              <td><%= item.Maker_Making || '' %></td>
+              <td colspan="8">
+                <!-- Planning: <%= item.Planning || '' %>, STD: <%= item.STD || ''
+                %>, Vendor: <%= item.Vendor || '' %>, Material: <%=
+                item.Material || '' %>, Production: <%= item.Production || ''
+                %>, Gauge Making: <%= item.Gauge_Making || '' %>, QC: <%=
+                item.QC || '' %>, Finish: <%= item.Finish || '' %> -->
+                <div class="d-flex justify-content-around">
+                  <div class="contain">
+                    <div class="steps">
+                      <span class="circle">1</span>
+                      <span class="circle">2</span>
+                      <span class="circle">3</span>
+                      <span class="circle">4</span>
+                      <span class="circle">5</span>
+                      <span class="circle">6</span>
+                      <span class="circle">7</span>
+                      <span class="circle">8</span>
+                      <div class="progress-bar">
+                        <span class="indicator"></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <%= item.FinishedDate ? new Date(item.FinishedDate).toISOString().split('T')[0] : '' %>
+              </td>
+            </tr>
+            <% }) %> <% } else { %>
+            <tr>
+              <td colspan="7" style="text-align: center">No data found</td>
+            </tr>
+            <% } %>
+          </tbody>
+        </table>
+      </div>
     </div>
-    <script>
-      // ดึงค่า Register_No จาก hidden input
-      
-      const RegisterNo = document.getElementById("Register_No").value.trim();
-
-      console.log("RegisterNo from EJS:", RegisterNo);
-
-    </script>
     <!-- Include the Axios library -->
     <script src="/js/main.js"></script>
   </body>
