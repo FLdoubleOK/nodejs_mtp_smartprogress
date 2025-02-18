@@ -27,7 +27,6 @@
         justify-content: center;
         background: #f6f7fb;
         margin: auto;
-        
       }
       .contain {
         display: flex;
@@ -109,6 +108,19 @@
         background: #49da5c;
         transition: all 500ms ease;
       }
+      /* สไตล์สำหรับวงกลมที่อยู่ก่อน active */
+      .circle.before-active {
+        background-color: #ffcc80; /* สีพื้นหลังที่ต่างจาก inactive */
+        border-color: #ffa726; /* สีขอบ */
+        color: #ffa726; /* สีตัวเลข */
+        opacity: 0.9; /* ทำให้สีชัดเจนขึ้น */
+      }
+      .circle.inactive {
+        background-color: #e0e0e0; /* สีพื้นหลังของวงกลม */
+        border-color: #bdbdbd; /* สีขอบวงกลม */
+        color: #bdbdbd; /* สีของตัวเลขในวงกลม */
+        opacity: 0.5; /* เพิ่มความโปร่งแสงเพื่อให้ดูจาง */
+      }
     </style>
   </head>
   <body class="">
@@ -120,8 +132,10 @@
         <div class="row mb-3">
           <div class="col-md-4">
             <strong>Work Category:</strong>
-            <div class="p-2 border rounded bg-light"
-            data-workcategory="<%= data[0].WorkCategory || '-' %>">
+            <div
+              class="p-2 border rounded bg-light"
+              data-workcategory="<%= data[0].WorkCategory || '-' %>"
+            >
               <%= data[0].WorkCategory || '-' %>
             </div>
           </div>
@@ -170,10 +184,13 @@
 
       <!-- Table for displaying data -->
       <div class="table-reponsive">
-        <table class="table table-bordered table-fixed" >
+        <table class="table table-bordered table-fixed">
           <thead class="sticky-top">
             <tr class="text-center align-middle border-dark-subtle">
-              <th class="" style="background-color: rgb(207, 240, 207); width: auto;">
+              <th
+                class=""
+                style="background-color: rgb(207, 240, 207); width: auto"
+              >
                 PartName
               </th>
               <th class="" style="background-color: rgb(207, 240, 207)">Qty</th>
@@ -278,7 +295,8 @@
                 </div>
               </td>
               <td>
-                <%= item.FinishedDate ? new Date(item.FinishedDate).toISOString().split('T')[0] : '' %>
+                <%= item.FinishedDate ? new
+                Date(item.FinishedDate).toISOString().split('T')[0] : '' %>
               </td>
             </tr>
             <% }) %> <% } else { %>

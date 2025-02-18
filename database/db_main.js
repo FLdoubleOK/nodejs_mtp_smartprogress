@@ -1,11 +1,11 @@
 const sql = require('mssql');
 const dbConfig = require("./db");
 
-async function TestSelect() {
+async function MaintenanceSave() {
     try {
        const pool = await sql.connect(dbConfig.config);
        const request = new sql.Request(pool);
-       const result = await request.execute('TestSelect');
+       const result = await request.execute('GetTopStatusApp');
        await pool.close();
        return result.recordset;
     } catch (error) {
@@ -24,6 +24,7 @@ async function TestSelect() {
        console.error(error);
     }
  }
+
 
  async function executeStoredProcedureWithParams(Register_No) {
     try {
@@ -46,6 +47,6 @@ async function TestSelect() {
 
  module.exports = {
     Where_Register_No,
-    TestSelect,
+    MaintenanceSave,
     executeStoredProcedureWithParams,
  }
