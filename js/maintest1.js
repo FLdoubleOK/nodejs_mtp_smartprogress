@@ -53,12 +53,16 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     } else if (
       workCategory === "Gauge Calibration" ||
-      workCategory === "Request Standard Part" ||
       workCategory === "Request Quotation/Cost" ||
-      workCategory === "Request Material" ||
       workCategory === "Making Flow Rack & Equipment"
     ) {
       flow = [1, 8];
+    } else if (
+      workCategory === "Request Standard Part"
+    ) {
+      flow = [1, 7, 8];
+    } else if (workCategory === "Request Material") {
+      flow = [1, 4, 8];
     } else if (
       workCategory === "Tool making" ||
       workCategory === "Tool making(PD3)" ||
