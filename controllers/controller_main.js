@@ -27,18 +27,9 @@ async function MainPage(req, res) {
   }
 }
 
-async function SubPage(req, res) {
-  try {
-    const result = await db.Where_Register_No();
-    console.log(result.length);
-    res.send(result);
-  } catch (error) {
-    console.error(`Error : ${error}`);
-    res.status(500).send({ msg: `Error : ${error}` });
-  }
-}
 async function fetchRegisterNo(req, res) {
   const { Register_No } = req.params;
+  
   globalRegister = Register_No;
   
   console.log("Controller log: " + Register_No);
@@ -69,39 +60,37 @@ async function fetchRegisterNo(req, res) {
   }
 }
 
-async function getRegister(req, res, data) {
-  const Register_No = req.session?.Register_No || null;
-  console.log('session: ', Register_No)
-  console.log('session data: ', data)
-  // const Register_No = globalRegister  
-  try {
-    if (!globalRegister) {
-      return res.status(400).json({
-        success: false,
-        error: "No Register_No set in the system",
-      });
-    }
-    console.log("Global Register_No:", Register_No);
-    res.status(200).send({
-      success: true,
-      Register_No: Register_No,
-      data
-    });
+// async function getRegister(req, res, data) {
+//   const Register_No = req.session?.Register_No || null;
+//   console.log('session: ', Register_No)
+//   console.log('session data: ', data)
+//   // const Register_No = globalRegister  
+//   try {
+//     if (!globalRegister) {
+//       return res.status(400).json({
+//         success: false,
+//         error: "No Register_No set in the system",
+//       });
+//     }
+//     console.log("Global Register_No:", Register_No);
+//     res.status(200).send({
+//       success: true,
+//       Register_No: Register_No,
+//       data
+//     });
     
-  } catch (error) {
-    console.error(`Error: ${error.message}`);
-    res.status(500).send({
-      success: false,
-      message: "Error fetching globalRegister",
-      error: error.message,
-    });
-  }
-}
+//   } catch (error) {
+//     console.error(`Error: ${error.message}`);
+//     res.status(500).send({
+//       success: false,
+//       message: "Error fetching globalRegister",
+//       error: error.message,
+//     });
+//   }
+// }
 
 module.exports = {
   renderMain,
   MainPage,
-  SubPage,
-  getRegister,
   fetchRegisterNo,
 };

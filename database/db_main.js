@@ -13,6 +13,29 @@ async function MaintenanceSave() {
     }
  }
 
+ async function updateAppStatus(status, remark, createDate) {
+   try {
+     const pool = await sql.connect(dbConfig.config);
+     const request = new sql.Request(pool);
+ 
+     request.input('Status', sql.Int, status);
+     request.input('Remark', sql.NVarChar, remark);
+     request.input('CreateDate', sql.DateTime, createDate);
+ 
+     const result = await request.query(`
+       INSERT INTO tbl_Status_App (Status, Remark, CreateDate)
+       VALUES (@Status, @Remark, @CreateDate)
+     `);
+ 
+     await pool.close();
+     return result;
+   } catch (error) {
+     console.error(`Error inserting status: ${error.message}`);
+     throw new Error("Database operation failed");
+   }
+ }
+ 
+
  async function Where_Register_No() {
     try {
        const pool = await sql.connect(dbConfig.config);
@@ -49,4 +72,5 @@ async function MaintenanceSave() {
     Where_Register_No,
     MaintenanceSave,
     executeStoredProcedureWithParams,
+    updateAppStatus
  }

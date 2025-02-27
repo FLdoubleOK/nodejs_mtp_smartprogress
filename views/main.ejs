@@ -20,6 +20,11 @@
         animation: blink 1s infinite; /* กระพริบ */
         box-shadow: 0 0 10px 2px #4070f4; /* เพิ่มเงาสีฟ้ารอบจุด */
       }
+      .circle.final-step {
+        border-color: #4070f4;
+        animation: blink 1s infinite;
+        box-shadow: 0 0 10px 2px #4070f4;
+      }
       body {
         width: 90%;
         display: flex;
@@ -49,19 +54,26 @@
         color: #1945be;
       }
       .circle.done {
-        background-color: #49da5c; /* ระบายสีพื้นหลังเป็นสีเขียว */
-        border-color: #49da5c; /* สีขอบวงกลม */
-        color: #ffffff; /* สีของสัญลักษณ์ภายในวงกลม */
-        font-size: 16px; /* ขนาดตัวอักษร */
-        font-weight: bold; /* ทำให้ตัวอักษรหนา */
+        position: relative;
+        background-color: #49da5c;
+        border-color: #49da5c;
+        color: #000000;
+        font-size: 16px;
+        font-weight: bold;
+        z-index: 1;
       }
 
       .circle.done::after {
+        position: absolute;
         content: "✓"; /*แสดงเครื่องหมายติ้กถูก */
+        top: 50%; /* จัดกึ่งกลางแนวตั้ง */
+        left: 50%; /* จัดกึ่งกลางแนวนอน */
+        transform: translate(-50%, -50%); /* ปรับตำแหน่งให้ตรงกึ่งกลาง */
         display: inline-block; /* แสดงผลในรูปแบบบล็อกย่อย */
         font-size: 16px; /* ขนาดของเครื่องหมายติ้กถูก */
         font-weight: bold; /* ทำให้ตัวอักษรหนา */
         color: #ffffff; /* สีของเครื่องหมายติ้กถูก */
+        z-index: 1; /* ทำให้เครื่องหมายติ้กถูกอยู่เหนือเลข */
       }
       /* จุดล่าสุดที่ Active */
       .circle.current-step {
@@ -71,6 +83,7 @@
         transform: scale(1.2); /* เพิ่มขนาดเพื่อเน้น */
         box-shadow: 0 0 10px 2px #1945be; /* เพิ่มเงาเพื่อให้โดดเด่น */
         animation: blink 1s infinite; /* เพิ่มเอฟเฟกต์กระพริบ */
+        z-index: 2;
       }
       .steps .circle {
         display: flex;
@@ -90,9 +103,9 @@
       }
       .circle.active {
         transition-delay: 100ms;
-        border-color: #49da5c;
-        color: #49da5c; /* string */
-        background-color: #49da5c;
+        border-color: #3fbd5b;
+        color: #bdbdbd; /* string */
+        background-color: #3fbd5b;
       }
       .steps .progress-bar {
         position: absolute;
@@ -110,16 +123,16 @@
       }
       /* สไตล์สำหรับวงกลมที่อยู่ก่อน active */
       .circle.before-active {
-        background-color: #7a7875; /* สีพื้นหลังที่ต่างจาก inactive */
-        border-color: #7a7875; /* สีขอบ */
-        color: #4d4b49; /* สีตัวเลข */
-        opacity: 0.9; /* ทำให้สีชัดเจนขึ้น */
+        background-color: #e7e1e1; /* สีพื้นหลังที่ต่างจาก inactive */
+        border-color: #d4d1d1; /* สีขอบ */
+        color: #a7a4a0; /* สีตัวเลข */
+        opacity: 1; /* ทำให้สีชัดเจนขึ้น */
       }
       .circle.inactive {
-        background-color: #e0e0e0; /* สีพื้นหลังของวงกลม */
+        background-color: #bdbdbd; /* สีพื้นหลังของวงกลม */
         border-color: #bdbdbd; /* สีขอบวงกลม */
         color: #bdbdbd; /* สีของตัวเลขในวงกลม */
-        opacity: 0.5; /* เพิ่มความโปร่งแสงเพื่อให้ดูจาง */
+        opacity: 1; /* เพิ่มความโปร่งแสงเพื่อให้ดูจาง */
       }
     </style>
   </head>
@@ -258,13 +271,15 @@
             <tr
               class="text-center align-middle"
               data-planning="<%= item.Planning || 0 %>"
-              data-std="<%= item.STD || 0 %>"
+              data-std="<%= item.STD || 'null' %>"
               data-vendor="<%= item.Vendor || 0 %>"
               data-material="<%= item.Material || 0 %>"
               data-production="<%= item.Production || 0 %>"
               data-gauge-making="<%= item.Gauge_Making || 0 %>"
               data-qc="<%= item.QC || 0 %>"
               data-finish="<%= item.Finish || 0 %>"
+              data-maker="<%= item.Maker || 'null' %>"
+              data-maker_making="<%= item.Maker_Making || 'null' %>"
             >
               <td><%= item.PartName || '' %></td>
               <td><%= item.Qty || '' %></td>
@@ -309,6 +324,6 @@
       </div>
     </div>
     <!-- Include the Axios library -->
-    <script src="/js/main.js"></script>
+    <script src="/js/maintest1.js"></script>
   </body>
 </html>

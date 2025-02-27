@@ -93,3 +93,37 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
+
+
+    // // ตัวแปรเก็บ flow ที่จะใช้
+    // let flow = [];
+    // // เลือก flow ตาม WorkCategory และเงื่อนไข
+    // if (workCategory === "Gauge making") {
+    //   if (row.getAttribute("data-maker_making").length > 1) {
+    //     flow = [1, 6, 7, 8]; // Flow: (1,6,7,8)
+    //   } else {
+    //     flow = [1, 5, 6, 7, 8]; // Flow: (1,5,6,7,8)
+    //   }
+    // } else {
+    //   if (
+    //     row.getAttribute("data-maker") === "null" &&
+    //     row.getAttribute("data-std") === "null"
+    //   ) {
+    //     // ไม่ใช่ STD Part
+    //     console.log("1 ", row);
+    //     flow = [1, 4, 5, 7, 8]; // Flow: (1,4,5,7,8)
+    //   } else if (
+    //     row.getAttribute("data-std") !== "Stock" &&
+    //     row.getAttribute("data-maker").length > 1
+    //   ) {
+    //     // STD Part
+    //     console.log("2 ", row);
+    //     flow = [1, 2, 3, 7, 8]; // Flow: (1,2,3,7,8)
+    //   } else if (row.getAttribute("data-std") === "Stock") {
+    //     // STD Part with 'stock'
+    //     console.log("3 ", row);
+    //     flow = [1, 2, 7, 8]; // Flow: (1,2,7,8)
+    //   } else {
+    //     console.log(row);
+    //   }
+    // }
