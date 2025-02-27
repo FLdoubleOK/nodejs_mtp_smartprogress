@@ -11,30 +11,30 @@ document.addEventListener("DOMContentLoaded", () => {
     // ดึงค่าจาก item ที่แสดงในตาราง (อาจมาจาก EJS)
     const item = {
       Planning: parseInt(row.getAttribute("data-planning")) || 0,
+      // STD:
+      //   row.getAttribute("data-std") !== null &&
+      //   parseInt(row.getAttribute("data-vendor")) === 1 ? 1 : 0,
       STD:
-        row.getAttribute("data-std") !== null &&
-        parseInt(row.getAttribute("data-vendor")) === 1 ? 1 : 0,
+        (row.getAttribute("data-std").length > 1 &&
+          parseInt(row.getAttribute("data-vendor")) === 1) ||
+        (row.getAttribute("data-std") === "stock" &&
+          parseInt(row.getAttribute("data-qc")) === 1)
+          ? 1
+          : 0,
       Vendor: parseInt(row.getAttribute("data-vendor")) || 0,
       Material: parseInt(row.getAttribute("data-material")) || 0,
       Production: parseInt(row.getAttribute("data-production")) || 0,
       Gauge_Making:
         workCategory === "Gauge making" &&
-        (parseInt(row.getAttribute("data-production")) === 1 || parseInt(row.getAttribute("data-qc")) === 1) ? 1 : 0,
+        (parseInt(row.getAttribute("data-production")) === 1 ||
+          parseInt(row.getAttribute("data-qc")) === 1)
+          ? 1
+          : 0,
       QC: parseInt(row.getAttribute("data-qc")) || 0,
       Finish: parseInt(row.getAttribute("data-finish")) || 0,
     };
-
+    
     // ตัวแปรสำหรับเก็บสถานะขั้นตอนทั้งหมด
-    //   const steps = [
-    //     item.Planning,
-    //     item.STD,
-    //     item.Vendor,
-    //     item.Material,
-    //     item.Production,
-    //     item.Gauge_Making,
-    //     item.QC,
-    //     item.Finish,
-    //   ];
     const steps = [
       item.Planning,
       item.STD,
@@ -58,9 +58,17 @@ document.addEventListener("DOMContentLoaded", () => {
       } else {
         circles[index].classList.remove("active");
         circles[index].classList.remove("done");
-
+        circles[index].innerHTML = index + 1; // แสดงตัวเลข
       }
     });
+        // กำหนดให้วงกลมระหว่าง active และ inactive มีสีทึบ
+        for (let i = 0; i < lastActiveIndex; i++) {
+          if (steps[i] ===0) {
+            circles[i].classList.add("before-active"); // เพิ่มคลาสสีทึบ
+          } else {
+            circles[i].classList.remove("before-active"); // ลบคลาสสีทึบ หากไม่เข้าเงื่อนไข
+          }
+        }
     // ตรวจสอบว่า step สุดท้ายคือ Finish หรือไม่
     if (lastActiveIndex === steps.length - 1 && steps[lastActiveIndex] === 1) {
       // ถ้าเป็น Finish และเสร็จสมบูรณ์
