@@ -17,6 +17,9 @@
           <% if (result[0].Status === 1) { %> Server is online <% } else { %>
           Server is offline <% } %>
         </h1>
+        <h2 class="text-center mb-4">
+          Last Update : <%= result[0].CreateDate %>
+        </h2>
         <!-- ฟอร์มปุ่ม -->
         <form id="statusForm">
           <div class="mb-3">
